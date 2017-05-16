@@ -1,0 +1,19 @@
+{
+  "name": "zhangyuwei",
+  "version": "1.0.0",
+  "description": "zhangyuwei",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/minirosevi/zhangyuwei.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/minirosevi/zhangyuwei/issues"
+  },
+  "homepage": "https://github.com/minirosevi/zhangyuwei#readme"
+}

@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+
+        th, td {
+            width: 150px;
+            height: 30px;
+            background-color: #a6e1ec;
+        }
+    </style>
+</head>
+<body ng-app="myApp">
+<div ng-controller="myCtrl">
+    <input type="text" ng-model="data">
+    <button>search</button>
+    <table>
+        <thead>
+        <tr>
+            <th ng-click="toggle('id')">编号</th>
+            <th ng-click="toggle('name')">名称</th>
+            <th ng-click="toggle('money')">价格</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="obj in msg | filter:data | orderBy:index+type">
+            <td>{{obj.id}}</td>
+            <td>{{obj.name}}</td>
+            <td>{{obj.money}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script src="../js/common/angular.js"></script>
+<script>
+    var app = angular.module("myApp", []);
+    app.controller("myCtrl", function ($scope, mySev, $http) {
+        $http.get("/html/index").then(function success(res) {
+            $scope.msg = res.data;
+        }, function error(res) {
+            console.log("失败");
+        });
+        $scope.index = '';
+        $scope.toggle = function (type) {
+            $scope.type=type;
+            if ($scope.index == '') {
+                $scope.index = '-';
+            } else {
+                $scope.index = '';
+            }
+        };
+    });
+
+    app.service("mySev", function () {
+        return [
+            {
+                id: '4',
+                name: "iphone4",
+                money: "11111"
+            },
+            {
+                id: '2',
+                name: "iphone5",
+                money: "22222"
+            },
+            {
+                id: '3',
+                name: "iphone7",
+                money: "3333"
+            },
+            {
+                id: '1',
+                name: "iphone6",
+                money: "44444"
+            }
+        ]
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>过滤器</title>
+</head>
+<body ng-app="myApp">
+<div ng-controller="myCtrl">
+    <ul>
+        <li>从前面筛选出 <span>{{ num | limitTo:6 }}</span></li>
+        <li>从后面筛选出 <span>{{ num | limitTo:-6 }}</span></li>
+
+
+        <li>转换为小写 <span>{{ data.title | lowercase }}</span></li>
+        <li>转换为大写 <span>{{ data.title | uppercase }}</span></li>
+
+
+        <li>升序
+            <span>{{ data.school |  orderBy:"id"}}</span>
+        </li>
+        <li>降序
+            <span>{{ data.school |  orderBy:"-id"}}</span>
+        </li>
+
+        <li> {{number}}</li>
+        <li> {{json}} <span>这是 json格式</span></li>
+        <li>{{data}} <span>这是对象格式</span></li>
+
+        <li>{{data.school | filter:"龙"}}</li>
+        <li>{{data.school | filter:{"name":"派"} }}</li>
+
+
+        <li>过滤器自定义方法
+            <span>{{data.school | filter:filtername }}</span>
+        </li>
+
+
+        <li>每隔三个数会加上一个逗号分隔 <span>{{ num | number }}</span></li>
+        <li><p ng-bind="num | number"></p></li>
+
+        <li>保留四位小数 <span>{{ 123.456789 | number:4 }}</span></li>
+        <li><p ng-bind=" 123.4567| number:3 "></p></li>
+
+        <li>人民币 <span>{{ num | currency }}</span></li>
+        <li>人民币 <span ng-bind="num | currency:'￥'"></span></li>
+
+        <li>时间</li>
+        <li>{{ today | date:"yyyy-MM-dd HH:mm:ss" }}</li>
+        <li>{{today | date:"medium"}}</li>
+        <li>{{today | date:"short"}}</li>
+        <li>{{today | date:"fullDate"}}</li>
+        <li>{{today | date:"longDate"}}</li>
+
+        <li>年</li>
+        <li> {{today | date:"y"}}</li>
+        <li> {{today | date:"yy"}}</li>
+        <li> {{today | date:"yyyy"}}</li>
+
+        <li>月</li>
+        <li>{{today | date:"M"}}</li>
+        <li>{{today | date:"MM"}}</li>
+        <li>{{today | date:"MMM"}}</li>
+        <li>{{today | date:"MMMM"}}</li>
+
+        <li>日</li>
+        <li> {{today | date:"d"}}</li>
+        <li> {{today | date:"dd"}}</li>
+        <li> {{today | date:"EEE"}}</li>
+        <li> {{today | date:"EEEE"}}</li>
+
+        <li>小时</li>
+        <li> {{today | date:"HH"}}</li>
+        <li> {{today | date:"H"}}</li>
+        <li> {{today | date:"hh"}}</li>
+        <li> {{today | date:"h"}}</li>
+
+        <li>分</li>
+        <li> {{today | date:"mm"}}</li>
+        <li> {{today | date:"m"}}</li>
+
+        <li>秒</li>
+        <li> {{today | date:"ss"}}</li>
+        <li> {{today | date:"s"}}</li>
+    </ul>
+</div>
+<script src="../js/common/angular.js"></script>
+<script>
+    var app = angular.module("myApp", [], function ($provide) {
+    });
+
+    app.factory("data", function () {
+        return {
+            title: "神雕侠侣 The legend of condor hero",
+            school: [
+                {
+                    "id": "3",
+                    "name": "全真派 Quanzhen Taoism",
+                    "kungFu": "全真剑法 quanzhen-jian",
+                    "personage": "王重阳及全真七子  Wang Chongyang and his seven disciples"
+                },
+                {
+                    "id": "1",
+                    "name": "古墓派 Ancient Tomb Sect",
+                    "kungFu": "玉女心经 yunu-xinjing",
+                    "personage": "小龙女 Miss Dragon 杨过 Fault Young"
+                },
+                {
+                    "id": "2",
+                    "name": "桃花岛 Taohua Island",
+                    "kungFu": "黄老邪",
+                    "personage": "劈空掌"
+                }
+            ]
+        };
+    });
+    app.controller("myCtrl", function ($scope, data, $filter) {
+        $scope.num = 123456789;
+
+        $scope.data = data;
+
+        $scope.json = $filter('json')($scope.data.school);
+
+        $scope.number = $filter('number')(3000000);
+
+        $scope.today = new Date();
+
+        $scope.filtername = function (obj) {
+            if (obj.name.indexOf('派') != -1)
+                return true;
+        }
+
+
+    });
+
+</script>
+</body>
+</html>

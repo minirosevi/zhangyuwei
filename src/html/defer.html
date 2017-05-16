@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body ng-app="myApp">
+<div ng-controller="myCtrl">
+
+</div>
+<script src="../js/common/jquery.js"></script>
+<script src="../js/common/angular.js"></script>
+<script>
+    var data = null;
+    var wait = function (url) {
+        var defer = $.Deferred();
+        $.ajax({
+            url: url,
+            success: function (data) {
+                defer.resolve(data);
+            },
+            error: function () {
+                defer.reject("失败");
+            }
+        });
+        return defer.promise();
+    }
+    var obj1 = wait("../../data/defData1.json");
+    var obj2 = wait("../../data/defData2.json");
+    obj1.then(function (data1) {
+        data = data1;
+        return obj2;
+    }).then(function (data2) {
+        console.log(data);
+        console.log(data2);
+    });
+    var app = angular.module("myApp",[]);
+    app.controller('myCtrl',function(){
+
+    });
+    app.run(function ($q, $http) {
+        var def1 = $q.defer(), def2 = $q.defer();
+        setTimeout(function(){
+           def1.resolve("def1");
+        },1000);
+        setTimeout(function(){
+            def2.resolve("def2");
+        },3000);
+        def1.promise.then(function(data){
+            console.log(data);
+            return def2.promise;
+        }).then(function(data){
+            console.log(data);
+        });
+    });
+</script>
+</body>
+</html>

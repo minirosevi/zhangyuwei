@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>路由</title>
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../js/common/bootstrap.css">
+    <link rel="stylesheet" href="../css/kugou.css">
+</head>
+<body ng-app="myApp" ng-controller="myCtrl">
+<header class="modal-header header">
+    <img src="" alt="" ng-src="{{src}}">
+    <button class="btn">下载酷狗</button>
+    <i class="glyphicon glyphicon-search pull-right f18 text-white mt5"></i>
+</header>
+<nav class="nav">
+    <a href="#/">新歌</a>
+    <a href="#/rank">排行</a>
+    <a href="#/list">歌单</a>
+    <a href="#/singer">歌手</a>
+</nav>
+<div ng-view="" class="render">
+</div>
+<srcipt src="../js/common/jquery.js"></srcipt>
+<script src="../js/common/angular.js"></script>
+<script src="../js/common/angular-route.js"></script>
+<script>
+    var app = angular.module("myApp", ['ngRoute'])
+            .controller('myCtrl', function ($scope) {
+                $scope.src = "../images/kugou/kugou_logo.png";
+            })
+            .controller("newCtrl", function ($scope, serPor) {
+                $scope.src = "../images/kugou/kugou_banner.png";
+                $scope.song = serPor;
+
+            })
+            .controller("rankCtrl", function ($scope) {
+                $scope.data=[
+                    {
+                        "src":"../images/kugou/rank1.png",
+                        "con":"酷狗飙升榜"
+                    },
+                    {
+                        "src":"../images/kugou/rank2.png",
+                        "con":"酷狗TOP500"
+                    },
+                    {
+                        "src":"../images/kugou/rank3.png",
+                        "con":"网络红歌榜"
+                    },
+                    {
+                        "src":"../images/kugou/rank4.png",
+                        "con":"DJ热歌榜"
+                    }
+                ]
+            })
+            .controller("listCtrl", function ($scope,listser) {
+                  $scope.data=listser;
+            })
+            .controller("singerCtrl", function ($scope,singerser) {
+                $scope.data=singerser;
+            })
+            .config(function ($routeProvider) {
+                $routeProvider
+                        .when("/", {
+                            templateUrl: "./page/new.html",
+                            controller: "newCtrl"
+                        })
+                        .when("/rank", {
+                            templateUrl: "./page/rank.html",
+                            controller: "rankCtrl"
+                        })
+                        .when("/list", {
+                            templateUrl: "./page/list.html",
+                            controller: "listCtrl"
+                        })
+                        .when("/singer", {
+                            templateUrl: "./page/singer.html",
+                            controller: "singerCtrl"
+                        })
+                        .otherwise({redirectTo: "/new"});
+            });
+    app.service("serPor", function () {
+        return [
+            {
+                "song": "凉凉",
+                "src": ""
+            }
+        ];
+    });
+    app.service("listser", function () {
+        return [
+            {
+                "src":"../images/kugou/rank1.png",
+                "con":"梦想的声音 合集"
+            },
+            {
+                "src":"../images/kugou/rank2.png",
+                "con":"围灶音乐会 合集"
+            },
+            {
+                "src":"../images/kugou/rank3.png",
+                "con":"百首话语挚爱情歌"
+            },
+            {
+                "src":"../images/kugou/rank4.png",
+                "con":"最是粤语情深处"
+            }
+        ];
+    });
+    app.service("singerser", function () {
+        return [
+            {
+                "type1":"华语女歌手",
+                "type2":"华语男歌手",
+                "type3":"华语组合"
+            },
+            {
+                "type1":"日韩女歌手",
+                "type2":"日韩男歌手",
+                "type3":"日韩组合"
+            },
+            {
+                "type1":"欧美女歌手",
+                "type2":"欧美男歌手",
+                "type3":"欧美组合"
+            }
+        ];
+    });
+</script>
+</body>
+</html>

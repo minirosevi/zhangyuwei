@@ -1,0 +1,96 @@
+body {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: -webkit-flex;
+    flex-direction: column;
+    font-size: 0.16rem;
+}
+
+.header {
+    background-color: #2CA2F9;
+}
+
+.header img {
+    display: inline-block;
+}
+
+.header .btn {
+    border: 1px solid #fff;
+    background-color: transparent;
+    color: #fff;
+}
+
+li {
+    list-style: none;
+}
+
+.nav {
+    display: flex;
+    height: 3rem;
+    border-bottom: 1px solid #ccc;
+}
+
+.nav a {
+    flex: 1;
+    text-align: center;
+    line-height: 3rem;
+    color: #333;
+}
+
+.new-banner {
+    display: block;
+    width: 100%;
+    height: 150px;
+}
+
+.newli li {
+    height: 4rem;
+    line-height: 4rem;
+    display: flex;
+    cursor: pointer;
+    border-bottom: 1px solid #ccc;
+}
+
+.newli li p {
+    flex: 1;
+}
+
+.newli i {
+    line-height: 4rem;
+}
+
+.rankli li {
+    margin-bottom: 0.05rem;
+    height: 7.5rem;
+}
+
+.rankli li dl {
+    display: flex;
+}
+
+.rankli li dt img {
+    display: block;
+    height: 100%;
+}
+
+.rankli li dd {
+    line-height: 7.5rem;
+}
+
+.render {
+    flex: 1;
+    overflow-y: scroll;
+}
+
+audio {
+    width: 15rem;
+}
+
+.singer li {
+    line-height: 0.5rem;
+}
+
+/*# sourceMappingURL=kugou.css.map */
